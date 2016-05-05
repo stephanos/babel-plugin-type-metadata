@@ -1,8 +1,9 @@
 /* @flow */
 
 class MyClass {
-  stringField: string;
+  booleanField: bool;
   numberField: number;
+  stringField: string;
 }
 
 export default MyClass;
