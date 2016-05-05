@@ -18,7 +18,7 @@ function defineMetadata(t, path, type) {
       t.memberExpression(
         t.identifier('Reflect'), t.identifier('defineMetadata')
       ), [
-        t.stringLiteral('design:type'),
+        t.stringLiteral('typeof'),
         typeDescriptor,
         classPath.node.id,
         t.stringLiteral(path.node.key.name),

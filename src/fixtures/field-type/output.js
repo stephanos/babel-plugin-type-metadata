@@ -5,10 +5,10 @@ class MyClass {
   stringField: string;
 }
 
-Reflect.defineMetadata("design:type", {
+Reflect.defineMetadata("typeof", {
   type: String
 }, MyClass, "stringField")
-Reflect.defineMetadata("design:type", {
+Reflect.defineMetadata("typeof", {
   type: Number
 }, MyClass, "numberField")
 export default MyClass;

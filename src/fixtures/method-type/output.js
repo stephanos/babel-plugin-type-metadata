@@ -10,10 +10,10 @@ class MyClass {
   }
 }
 
-Reflect.defineMetadata('design:type', {
+Reflect.defineMetadata('typeof', {
   type: Number
 }, MyClass, 'numberMethod')
-Reflect.defineMetadata('design:type', {
+Reflect.defineMetadata('typeof', {
   type: String
 }, MyClass, 'stringMethod')
 export default MyClass;
