@@ -13,43 +13,60 @@ function serialize(input, value) {
 }
 
 describe('serialize', () => {
-  it('a boolean', () => {
-    const descr = serialize({ type: 'BooleanTypeAnnotation' });
-    assert.equal(descr, '{ type: Boolean }');
+  describe('a boolean', () => {
+    it('that is non-null', () => {
+      const descr = serialize({
+        type: 'BooleanTypeAnnotation' });
+      assert.equal(descr, '{ type: Boolean }');
+    });
+
+    it('that is nullable', () => {
+      const descr = serialize({
+        type: 'NullableTypeAnnotation',
+        typeAnnotation: { type: 'BooleanTypeAnnotation' } });
+      assert.equal(descr, '{ type: Boolean, nullable: true }');
+    });
   });
 
-  it('a nullable boolean', () => {
-    const descr = serialize({ type: 'NullableTypeAnnotation', typeAnnotation: { type: 'BooleanTypeAnnotation' } });
-    assert.equal(descr, '{ type: Boolean, nullable: true }');
+  describe('a number', () => {
+    it('that is non-null', () => {
+      const descr = serialize({
+        type: 'NumberTypeAnnotation' });
+      assert.equal(descr, '{ type: Number }');
+    });
+
+    it('that is nullable', () => {
+      const descr = serialize({
+        type: 'NullableTypeAnnotation',
+        typeAnnotation: { type: 'NumberTypeAnnotation' } });
+      assert.equal(descr, '{ type: Number, nullable: true }');
+    });
+
+    it('that is a literal', () => {
+      const descr = serialize(undefined, {
+        type: 'NumericLiteral' });
+      assert.equal(descr, '{ type: Number }');
+    });
   });
 
-  it('a number', () => {
-    const descr = serialize({ type: 'NumberTypeAnnotation' });
-    assert.equal(descr, '{ type: Number }');
-  });
+  describe('a string', () => {
+    it('that is non-null', () => {
+      const descr = serialize({
+        type: 'StringTypeAnnotation' });
+      assert.equal(descr, '{ type: String }');
+    });
 
-  it('a literal boolean', () => {
-    const descr = serialize(undefined, { type: 'NumericLiteral' });
-    assert.equal(descr, '{ type: Number }');
-  });
-
-  it('a nullable number', () => {
-    const descr = serialize({ type: 'NullableTypeAnnotation', typeAnnotation: { type: 'NumberTypeAnnotation' } });
-    assert.equal(descr, '{ type: Number, nullable: true }');
-  });
-
-  it('a string', () => {
-    const descr = serialize({ type: 'StringTypeAnnotation' });
-    assert.equal(descr, '{ type: String }');
-  });
-
-  it('a nullable string', () => {
-    const descr = serialize({ type: 'NullableTypeAnnotation', typeAnnotation: { type: 'StringTypeAnnotation' } });
-    assert.equal(descr, '{ type: String, nullable: true }');
+    it('that is nullable', () => {
+      const descr = serialize({
+        type: 'NullableTypeAnnotation',
+        typeAnnotation: { type: 'StringTypeAnnotation' } });
+      assert.equal(descr, '{ type: String, nullable: true }');
+    });
   });
 
   it('a void', () => {
-    const descr = serialize({ type: 'VoidTypeAnnotation' });
+    const descr = serialize({
+      type: 'VoidTypeAnnotation' });
     assert.equal(descr, '{ type: undefined }');
   });
 });

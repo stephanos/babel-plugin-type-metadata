@@ -1,50 +1,45 @@
 export default function serializer(t, type, valueType, acc = t.objectExpression([])) {
-  switch (type ? type.type : null) {
-    case 'NullableTypeAnnotation':
+  if (!type) {
+    if (t.isNumericLiteral(valueType)) {
+      acc.properties.unshift(
+        t.objectProperty(t.identifier('type'), t.identifier('Number'))
+      );
+    } else {
+      throw new Error('unknown type');
+    }
+  } else {
+    if (t.isNullableTypeAnnotation(type)) {
       acc.properties.push(
         t.objectProperty(t.identifier('nullable'), t.booleanLiteral(true))
       );
       return serializer(t, type.typeAnnotation, null, acc);
+    }
 
-    case 'TypeAnnotation':
+    if (t.isTypeAnnotation(type)) {
       return serializer(t, type.typeAnnotation, null, acc);
+    }
 
     // ==== primitives:
 
-    case 'BooleanTypeAnnotation':
+    if (t.isBooleanTypeAnnotation(type)) {
       acc.properties.unshift(
         t.objectProperty(t.identifier('type'), t.identifier('Boolean'))
       );
-      break;
-
-    case 'NumberTypeAnnotation':
+    } else if (t.isNumberTypeAnnotation(type)) {
       acc.properties.unshift(
         t.objectProperty(t.identifier('type'), t.identifier('Number'))
       );
-      break;
-
-    case 'StringTypeAnnotation':
+    } else if (t.isStringTypeAnnotation(type)) {
       acc.properties.unshift(
         t.objectProperty(t.identifier('type'), t.identifier('String'))
       );
-      break;
-
-    case 'VoidTypeAnnotation':
+    } else if (t.isVoidTypeAnnotation(type)) {
       acc.properties.unshift(
         t.objectProperty(t.identifier('type'), t.identifier('undefined'))
       );
-      break;
-
-    default:
-      switch (valueType ? valueType.type : null) {
-        case 'NumericLiteral':
-          acc.properties.unshift(
-            t.objectProperty(t.identifier('type'), t.identifier('Number'))
-          );
-          break;
-        default:
-          throw new Error('unknown type');
-      }
+    } else {
+      throw new Error('unknown type');
+    }
   }
 
   return acc;
