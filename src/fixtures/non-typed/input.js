@@ -1,0 +1,6 @@
+class MyClass {
+
+  field;
+
+  method() {}
+}
