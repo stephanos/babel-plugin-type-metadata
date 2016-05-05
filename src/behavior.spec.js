@@ -13,8 +13,10 @@ describe('query type metadata', () => {
     it('should return metadata', () => {
       const MyClass = load('field-simple-types').default;
 
-      assert.equal(Reflect.getMetadata('design:type', MyClass, 'stringField'), String);
-      assert.equal(Reflect.getOwnMetadata('design:type', MyClass, 'numberField'), Number);
+      assert.deepEqual(Reflect.getMetadata('design:type', MyClass, 'stringField'),
+        { type: String });
+      assert.deepEqual(Reflect.getOwnMetadata('design:type', MyClass, 'numberField'),
+        { type: Number });
     });
   });
 });

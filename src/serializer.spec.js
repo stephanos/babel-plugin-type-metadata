@@ -5,19 +5,26 @@ import generate from 'babel-generator';
 import serializer from './serializer';
 
 
+function serialize(input) {
+  const ast = serializer(t, input);
+  return generate(ast, {
+    concise: true,
+  }).code;
+}
+
 describe('serialize', () => {
   it('a boolean', () => {
-    const descr = serializer(t, { typeAnnotation: { type: 'BooleanTypeAnnotation' } });
-    assert.equal(generate(descr).code, 'Boolean');
+    const descr = serialize({ type: 'BooleanTypeAnnotation' });
+    assert.equal(descr, '{ type: Boolean }');
   });
 
   it('a number', () => {
-    const descr = serializer(t, { typeAnnotation: { type: 'NumberTypeAnnotation' } });
-    assert.equal(generate(descr).code, 'Number');
+    const descr = serialize({ type: 'NumberTypeAnnotation' });
+    assert.equal(descr, '{ type: Number }');
   });
 
   it('a string', () => {
-    const descr = serializer(t, { typeAnnotation: { type: 'StringTypeAnnotation' } });
-    assert.equal(generate(descr).code, 'String');
+    const descr = serialize({ type: 'StringTypeAnnotation' });
+    assert.equal(descr, '{ type: String }');
   });
 });

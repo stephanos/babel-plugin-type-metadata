@@ -6,8 +6,10 @@ function defineMetadata(t, path) {
     return;
   }
 
-  const typeDescriptor = serializer(t, type);
-  if (!typeDescriptor) {
+  let typeDescriptor = null;
+  try {
+    typeDescriptor = serializer(t, type);
+  } catch (e) {
     throw path.buildCodeFrameError('unable to serialize type');
   }
 

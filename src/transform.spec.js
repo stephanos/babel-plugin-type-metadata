@@ -33,6 +33,12 @@ describe('applying transformer to', () => {
     });
   });
 
+  describe('a class with simple nullable field types', () => {
+    it('should define metadata', () => {
+      testFixture('field-simple-nullable-types');
+    });
+  });
+
   describe('a non-decorated class', () => {
     it('should not modify the input', () => {
       testFixture('non-typed');
