@@ -1,13 +1,13 @@
-export default function serializer(t, type, acc = t.objectExpression([])) {
-  switch (type.type) {
+export default function serializer(t, type, valueType, acc = t.objectExpression([])) {
+  switch (type ? type.type : null) {
     case 'NullableTypeAnnotation':
       acc.properties.push(
         t.objectProperty(t.identifier('nullable'), t.booleanLiteral(true))
       );
-      return serializer(t, type.typeAnnotation, acc);
+      return serializer(t, type.typeAnnotation, null, acc);
 
     case 'TypeAnnotation':
-      return serializer(t, type.typeAnnotation, acc);
+      return serializer(t, type.typeAnnotation, null, acc);
 
     // ==== primitives:
 
@@ -36,7 +36,15 @@ export default function serializer(t, type, acc = t.objectExpression([])) {
       break;
 
     default:
-      throw new Error('unknown type');
+      switch (valueType ? valueType.type : null) {
+        case 'NumericLiteral':
+          acc.properties.unshift(
+            t.objectProperty(t.identifier('type'), t.identifier('Number'))
+          );
+          break;
+        default:
+          throw new Error('unknown type');
+      }
   }
 
   return acc;

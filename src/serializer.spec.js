@@ -5,8 +5,8 @@ import generate from 'babel-generator';
 import serializer from './serializer';
 
 
-function serialize(input) {
-  const ast = serializer(t, input);
+function serialize(input, value) {
+  const ast = serializer(t, input, value);
   return generate(ast, {
     concise: true,
   }).code;
@@ -25,6 +25,11 @@ describe('serialize', () => {
 
   it('a number', () => {
     const descr = serialize({ type: 'NumberTypeAnnotation' });
+    assert.equal(descr, '{ type: Number }');
+  });
+
+  it('a literal boolean', () => {
+    const descr = serialize(undefined, { type: 'NumericLiteral' });
     assert.equal(descr, '{ type: Number }');
   });
 
