@@ -1,12 +1,12 @@
 {
-  "name": "babel-plugin-decorator-metadata",
-  "version": "0.1.0",
+  "name": "babel-plugin-type-metadata",
+  "version": "0.0.1",
   "main": "dist/index.js",
-  "description": "Define decorator metadata",
+  "description": "Define Flow type metadata",
   "keywords": [
-    "decorator",
     "metadata",
     "reflect",
+    "flow",
     "babel-plugin",
     "babel",
     "plugin"
@@ -14,7 +14,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/stephanos/babel-plugin-decorator-metadata"
+    "url": "https://github.com/stephanos/babel-plugin-type-metadata"
   },
   "engines": {
     "node": ">= 6.0"
