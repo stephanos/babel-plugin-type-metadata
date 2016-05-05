@@ -27,15 +27,17 @@ function testFixture(dir, pluginOpts = {}) {
 
 
 describe('applying transformer to', () => {
-  describe('a class with simple field types', () => {
-    it('should define metadata', () => {
-      testFixture('field-simple-types');
+  describe('a class', () => {
+    describe('with typed fields', () => {
+      it('should define metadata', () => {
+        testFixture('field-type');
+      });
     });
-  });
 
-  describe('a class with simple nullable field types', () => {
-    it('should define metadata', () => {
-      testFixture('field-simple-nullable-types');
+    describe('with typed methods', () => {
+      it('should define metadata', () => {
+        testFixture('method-type');
+      });
     });
   });
 

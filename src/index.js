@@ -1,7 +1,6 @@
 import serializer from './serializer';
 
-function defineMetadata(t, path) {
-  const type = path.node.typeAnnotation;
+function defineMetadata(t, path, type) {
   if (!type) {
     return;
   }
@@ -32,7 +31,10 @@ export default function ({ types: t }) {
   return {
     visitor: {
       ClassProperty(path) {
-        defineMetadata(t, path);
+        defineMetadata(t, path, path.node.typeAnnotation);
+      },
+      ClassMethod(path) {
+        defineMetadata(t, path, path.node.returnType);
       },
     },
   };

@@ -1,7 +1,6 @@
 /* @flow */
 
 class MyClass {
-  booleanField: bool;
   numberField: number;
   stringField: string;
 }
@@ -12,7 +11,4 @@ Reflect.defineMetadata("design:type", {
 Reflect.defineMetadata("design:type", {
   type: Number
 }, MyClass, "numberField")
-Reflect.defineMetadata("design:type", {
-  type: Boolean
-}, MyClass, "booleanField")
 export default MyClass;
