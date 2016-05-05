@@ -29,6 +29,12 @@ export default function serializer(t, type, acc = t.objectExpression([])) {
       );
       break;
 
+    case 'VoidTypeAnnotation':
+      acc.properties.unshift(
+        t.objectProperty(t.identifier('type'), t.identifier('undefined'))
+      );
+      break;
+
     default:
       throw new Error('unknown type');
   }

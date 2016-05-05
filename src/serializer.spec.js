@@ -27,4 +27,9 @@ describe('serialize', () => {
     const descr = serialize({ type: 'StringTypeAnnotation' });
     assert.equal(descr, '{ type: String }');
   });
+
+  it('a void', () => {
+    const descr = serialize({ type: 'VoidTypeAnnotation' });
+    assert.equal(descr, '{ type: undefined }');
+  });
 });
