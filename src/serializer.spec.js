@@ -10,4 +10,9 @@ describe('serialize', () => {
     const descr = serializer(t, { typeAnnotation: { type: 'StringTypeAnnotation' } });
     assert.equal(generate(descr).code, 'String');
   });
+
+  it('a number', () => {
+    const descr = serializer(t, { typeAnnotation: { type: 'NumberTypeAnnotation' } });
+    assert.equal(generate(descr).code, 'Number');
+  });
 });

@@ -11,9 +11,10 @@ function load(dir) {
 describe('query type metadata', () => {
   describe('of a field', () => {
     it('should return metadata', () => {
-      const MyClass = load('typed-field').default;
-      
-      assert.equal(Reflect.getOwnMetadata('design:type', MyClass, 'field'), String);
+      const MyClass = load('field-simple-types').default;
+
+      assert.equal(Reflect.getMetadata('design:type', MyClass, 'stringField'), String);
+      assert.equal(Reflect.getOwnMetadata('design:type', MyClass, 'numberField'), Number);
     });
   });
 });

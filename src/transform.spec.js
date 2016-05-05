@@ -27,9 +27,9 @@ function testFixture(dir, pluginOpts = {}) {
 
 
 describe('applying transformer to', () => {
-  describe('a typed field', () => {
+  describe('a class with simple field types', () => {
     it('should define metadata', () => {
-      testFixture('typed-field');
+      testFixture('field-simple-types');
     });
   });
 
