@@ -1,15 +1,17 @@
 /* @flow */
 
 class MyClass {
-  constructor() {
+  method(param: string): string {
     this.foo = 'bar';
   }
 }
 
 Reflect.defineMetadata('typeof', {
   returns: {
-    type: MyClass
+    type: String
   },
-  parameters: []
-}, MyClass, 'constructor')
+  parameters: [{
+    type: String
+  }]
+}, MyClass, 'method')
 export default MyClass;

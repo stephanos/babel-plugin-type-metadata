@@ -11,9 +11,15 @@ class MyClass {
 }
 
 Reflect.defineMetadata('typeof', {
-  type: Number
+  returns: {
+    type: Number
+  },
+  parameters: []
 }, MyClass, 'numberMethod')
 Reflect.defineMetadata('typeof', {
-  type: String
+  returns: {
+    type: String
+  },
+  parameters: []
 }, MyClass, 'stringMethod')
 export default MyClass;
