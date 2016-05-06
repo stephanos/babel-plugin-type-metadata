@@ -101,4 +101,17 @@ describe('serialize', () => {
       assert.equal(descr, '{ type: RegExp }');
     });
   });
+
+  describe('an array', () => {
+    it('type declaration', () => {
+      const descr = serialize({
+        type: 'GenericTypeAnnotation',
+        id: { name: 'Array' },
+        typeParameters: {
+          type: 'TypeParameterInstantiation',
+          params: [{ type: 'StringTypeAnnotation' }] },
+      });
+      assert.equal(descr, '{ type: Array, parameters: [{ type: String }] }');
+    });
+  });
 });

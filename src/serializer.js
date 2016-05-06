@@ -51,6 +51,15 @@ export default function serializer(t, type, valueType, acc = t.objectExpression(
       acc.properties.unshift(
         t.objectProperty(t.identifier('type'), t.identifier(type.id.name))
       );
+
+      if (type.typeParameters) {
+        acc.properties.push(
+          t.objectProperty(
+            t.identifier('parameters'),
+            t.arrayExpression(type.typeParameters.params.map((p) => serializer(t, p)))
+          )
+        );
+      }
     } else {
       throw new Error('unknown type');
     }
