@@ -87,4 +87,18 @@ describe('serialize', () => {
       type: 'VoidTypeAnnotation' });
     assert.equal(descr, '{ type: undefined }');
   });
+
+  describe('a regular expression', () => {
+    it('type declaration', () => {
+      const descr = serialize({
+        type: 'GenericTypeAnnotation', id: { name: 'RegExp' } });
+      assert.equal(descr, '{ type: RegExp }');
+    });
+
+    it('that is a literal', () => {
+      const descr = serialize(undefined, {
+        type: 'RegExpLiteral' });
+      assert.equal(descr, '{ type: RegExp }');
+    });
+  });
 });

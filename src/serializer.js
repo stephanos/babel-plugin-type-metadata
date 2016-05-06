@@ -12,6 +12,10 @@ export default function serializer(t, type, valueType, acc = t.objectExpression(
       acc.properties.unshift(
         t.objectProperty(t.identifier('type'), t.identifier('String'))
       );
+    } else if (t.isRegExpLiteral(valueType)) {
+      acc.properties.unshift(
+        t.objectProperty(t.identifier('type'), t.identifier('RegExp'))
+      );
     } else {
       throw new Error('unknown type');
     }
@@ -26,8 +30,6 @@ export default function serializer(t, type, valueType, acc = t.objectExpression(
     if (t.isTypeAnnotation(type)) {
       return serializer(t, type.typeAnnotation, null, acc);
     }
-
-    // ==== primitives:
 
     if (t.isBooleanTypeAnnotation(type)) {
       acc.properties.unshift(
@@ -44,6 +46,10 @@ export default function serializer(t, type, valueType, acc = t.objectExpression(
     } else if (t.isVoidTypeAnnotation(type)) {
       acc.properties.unshift(
         t.objectProperty(t.identifier('type'), t.identifier('undefined'))
+      );
+    } else if (t.genericTypeAnnotation(type)) {
+      acc.properties.unshift(
+        t.objectProperty(t.identifier('type'), t.identifier(type.id.name))
       );
     } else {
       throw new Error('unknown type');
