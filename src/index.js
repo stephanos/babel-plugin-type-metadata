@@ -1,6 +1,13 @@
+/* eslint no-param-reassign: 0 */
+
 import serializer from './serializer';
 
 function defineMetadata(t, path, type) {
+  const classPath = path.parentPath.parentPath;
+
+  if (path.node.kind === 'constructor') {
+    type = t.typeAnnotation(t.genericTypeAnnotation(classPath.node.id));
+  }
   if (!type) {
     return;
   }
@@ -12,7 +19,6 @@ function defineMetadata(t, path, type) {
     // throw path.buildCodeFrameError('unable to serialize type');
   }
 
-  const classPath = path.parentPath.parentPath;
   classPath.insertAfter(
     t.callExpression(
       t.memberExpression(

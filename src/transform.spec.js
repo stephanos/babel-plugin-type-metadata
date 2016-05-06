@@ -39,6 +39,12 @@ describe('applying transformer to', () => {
         testFixture('method-type');
       });
     });
+
+    describe('with typed constructor', () => {
+      it('should define metadata', () => {
+        testFixture('constructor-type');
+      });
+    });
   });
 
   describe('a non-decorated class', () => {
