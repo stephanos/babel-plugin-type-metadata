@@ -30,30 +30,30 @@ describe('applying transformer to', () => {
   describe('a class', () => {
     describe('with typed fields', () => {
       it('should define metadata', () => {
-        testFixture('field-type');
+        testFixture('field');
       });
     });
 
     describe('with typed methods', () => {
       it('should define metadata', () => {
-        testFixture('method-type');
+        testFixture('method');
       });
 
       describe('with parameters', () => {
         it('should define metadata', () => {
-          testFixture('method-with-param-type');
+          testFixture('method-with-param');
         });
       });
     });
 
     describe('with typed constructor', () => {
       it('should define metadata', () => {
-        testFixture('constructor-type');
+        testFixture('constructor');
       });
 
       describe('with parameters', () => {
         it('should define metadata', () => {
-          testFixture('constructor-with-param-type');
+          testFixture('constructor-with-param');
         });
       });
     });

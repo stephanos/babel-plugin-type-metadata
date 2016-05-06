@@ -11,7 +11,7 @@ function load(dir) {
 describe('query type metadata', () => {
   describe('of a field', () => {
     it('should return metadata', () => {
-      const MyClass = load('field-type').default;
+      const MyClass = load('field').default;
 
       assert.deepEqual(Reflect.getMetadata('typeof', MyClass, 'stringField'),
         { kind: 'prop', type: String });
@@ -20,7 +20,7 @@ describe('query type metadata', () => {
 
   describe('of a method', () => {
     it('should return metadata', () => {
-      const MyClass = load('method-type').default;
+      const MyClass = load('method').default;
 
       assert.deepEqual(Reflect.getMetadata('typeof', MyClass, 'stringMethod'),
         { kind: 'method', returns: { type: String }, parameters: [] });
