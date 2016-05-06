@@ -51,7 +51,22 @@ export default function serializer(t, type, valueType, acc = t.objectExpression(
       acc.properties.unshift(
         t.objectProperty(t.identifier('type'), t.identifier('Object'))
       );
-    } else if (t.genericTypeAnnotation(type)) {
+    } else if (t.isFunctionTypeAnnotation(type)) {
+      acc.properties.unshift(
+        t.objectProperty(t.identifier('type'), t.identifier('Function'))
+      );
+
+      acc.properties.push(
+        t.objectProperty(t.identifier('returns'), serializer(t, type.returnType))
+      );
+
+      acc.properties.push(
+        t.objectProperty(
+          t.identifier('parameters'),
+          t.arrayExpression(type.params.map((p) => serializer(t, p)))
+        )
+      );
+    } else if (t.genericTypeAnnotation(type) && type.id) {
       acc.properties.unshift(
         t.objectProperty(t.identifier('type'), t.identifier(type.id.name))
       );
@@ -59,7 +74,7 @@ export default function serializer(t, type, valueType, acc = t.objectExpression(
       if (type.typeParameters) {
         acc.properties.push(
           t.objectProperty(
-            t.identifier('parameters'),
+            t.identifier('typeParameters'),
             t.arrayExpression(type.typeParameters.params.map((p) => serializer(t, p)))
           )
         );

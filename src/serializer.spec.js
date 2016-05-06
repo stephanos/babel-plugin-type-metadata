@@ -117,7 +117,19 @@ describe('serialize', () => {
           type: 'TypeParameterInstantiation',
           params: [{ type: 'StringTypeAnnotation' }] },
       });
-      assert.equal(descr, '{ type: Array, parameters: [{ type: String }] }');
+      assert.equal(descr, '{ type: Array, typeParameters: [{ type: String }] }');
+    });
+  });
+
+  describe('a function', () => {
+    it('type declaration', () => {
+      const descr = serialize({
+        type: 'FunctionTypeAnnotation',
+        returnType: { type: 'StringTypeAnnotation' },
+        params: [{ type: 'StringTypeAnnotation' }, { type: 'StringTypeAnnotation' }],
+      });
+      assert.equal(descr,
+        '{ type: Function, returns: { type: String }, parameters: [{ type: String }, { type: String }] }');
     });
   });
 });
