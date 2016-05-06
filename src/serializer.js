@@ -1,8 +1,16 @@
 export default function serializer(t, type, valueType, acc = t.objectExpression([])) {
   if (!type) {
-    if (t.isNumericLiteral(valueType)) {
+    if (t.isBooleanLiteral(valueType)) {
+      acc.properties.unshift(
+        t.objectProperty(t.identifier('type'), t.identifier('Boolean'))
+      );
+    } else if (t.isNumericLiteral(valueType)) {
       acc.properties.unshift(
         t.objectProperty(t.identifier('type'), t.identifier('Number'))
+      );
+    } else if (t.isStringLiteral(valueType)) {
+      acc.properties.unshift(
+        t.objectProperty(t.identifier('type'), t.identifier('String'))
       );
     } else {
       throw new Error('unknown type');

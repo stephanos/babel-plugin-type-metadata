@@ -26,6 +26,12 @@ describe('serialize', () => {
         typeAnnotation: { type: 'BooleanTypeAnnotation' } });
       assert.equal(descr, '{ type: Boolean, nullable: true }');
     });
+
+    it('that is a literal', () => {
+      const descr = serialize(undefined, {
+        type: 'BooleanLiteral' });
+      assert.equal(descr, '{ type: Boolean }');
+    });
   });
 
   describe('a number', () => {
@@ -61,6 +67,12 @@ describe('serialize', () => {
         type: 'NullableTypeAnnotation',
         typeAnnotation: { type: 'StringTypeAnnotation' } });
       assert.equal(descr, '{ type: String, nullable: true }');
+    });
+
+    it('that is a literal', () => {
+      const descr = serialize(undefined, {
+        type: 'StringLiteral' });
+      assert.equal(descr, '{ type: String }');
     });
   });
 
