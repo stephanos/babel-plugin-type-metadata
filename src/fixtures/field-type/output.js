@@ -6,9 +6,11 @@ class MyClass {
 }
 
 Reflect.defineMetadata("typeof", {
+  kind: "prop",
   type: String
 }, MyClass, "stringField")
 Reflect.defineMetadata("typeof", {
+  kind: "prop",
   type: Number
 }, MyClass, "numberField")
 export default MyClass;

@@ -11,12 +11,14 @@ class MyClass {
 }
 
 Reflect.defineMetadata('typeof', {
+  kind: 'method',
   returns: {
     type: Number
   },
   parameters: []
 }, MyClass, 'numberMethod')
 Reflect.defineMetadata('typeof', {
+  kind: 'method',
   returns: {
     type: String
   },

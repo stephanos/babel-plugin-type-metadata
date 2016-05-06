@@ -2,7 +2,10 @@
 
 import serializer from './serializer';
 
-function defineMetadata(t, classPath, path, typeDescriptor) {
+function defineMetadata(t, kind, classPath, path, typeDescriptor) {
+  typeDescriptor.properties.unshift(
+    t.objectProperty(t.identifier('kind'), t.stringLiteral(kind))
+  );
   classPath.insertAfter(
     t.callExpression(
       t.memberExpression(
@@ -34,7 +37,7 @@ export default function ({ types: t }) {
           // console.log(e);
           return;
         }
-        defineMetadata(t, classPath, path, typeDescriptor);
+        defineMetadata(t, 'prop', classPath, path, typeDescriptor);
       },
       ClassMethod(path) {
         const classPath = path.parentPath.parentPath;
@@ -60,7 +63,7 @@ export default function ({ types: t }) {
           return;
         }
 
-        defineMetadata(t, classPath, path, typeDescriptor);
+        defineMetadata(t, path.node.kind, classPath, path, typeDescriptor);
       },
     },
   };

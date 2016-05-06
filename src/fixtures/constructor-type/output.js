@@ -7,6 +7,7 @@ class MyClass {
 }
 
 Reflect.defineMetadata('typeof', {
+  kind: 'constructor',
   returns: {
     type: MyClass
   },
