@@ -8,7 +8,7 @@ export default function serializer(t, type, valueType, acc = t.objectExpression(
       acc.properties.unshift(
         t.objectProperty(t.identifier('type'), t.identifier('Number'))
       );
-    } else if (t.isStringLiteral(valueType)) {
+    } else if (t.isStringLiteral(valueType) || t.isTemplateLiteral(valueType)) {
       acc.properties.unshift(
         t.objectProperty(t.identifier('type'), t.identifier('String'))
       );

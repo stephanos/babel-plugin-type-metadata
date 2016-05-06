@@ -74,6 +74,12 @@ describe('serialize', () => {
         type: 'StringLiteral' });
       assert.equal(descr, '{ type: String }');
     });
+
+    it('that is a template literal', () => {
+      const descr = serialize(undefined, {
+        type: 'TemplateLiteral' });
+      assert.equal(descr, '{ type: String }');
+    });
   });
 
   it('a void', () => {
