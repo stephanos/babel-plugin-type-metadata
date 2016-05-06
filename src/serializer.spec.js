@@ -121,6 +121,16 @@ describe('serialize', () => {
     });
   });
 
+  describe('an object', () => {
+    it('type declaration', () => {
+      const descr = serialize({
+        type: 'GenericTypeAnnotation',
+        id: { name: 'Object' },
+      });
+      assert.equal(descr, '{ type: Object }');
+    });
+  });
+
   describe('a function', () => {
     it('type declaration', () => {
       const descr = serialize({
