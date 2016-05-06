@@ -47,6 +47,10 @@ export default function serializer(t, type, valueType, acc = t.objectExpression(
       acc.properties.unshift(
         t.objectProperty(t.identifier('type'), t.identifier('undefined'))
       );
+    } else if (t.isAnyTypeAnnotation(type)) {
+      acc.properties.unshift(
+        t.objectProperty(t.identifier('type'), t.identifier('Object'))
+      );
     } else if (t.genericTypeAnnotation(type)) {
       acc.properties.unshift(
         t.objectProperty(t.identifier('type'), t.identifier(type.id.name))

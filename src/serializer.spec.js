@@ -82,10 +82,16 @@ describe('serialize', () => {
     });
   });
 
-  it('a void', () => {
+  it('a void type', () => {
     const descr = serialize({
       type: 'VoidTypeAnnotation' });
     assert.equal(descr, '{ type: undefined }');
+  });
+
+  it('an any type', () => {
+    const descr = serialize({
+      type: 'AnyTypeAnnotation' });
+    assert.equal(descr, '{ type: Object }');
   });
 
   describe('a regular expression', () => {
