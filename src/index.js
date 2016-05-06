@@ -9,7 +9,7 @@ function defineMetadata(t, path, type) {
   try {
     typeDescriptor = serializer(t, type, path.node.value);
   } catch (e) {
-    throw path.buildCodeFrameError('unable to serialize type');
+    // throw path.buildCodeFrameError('unable to serialize type');
   }
 
   const classPath = path.parentPath.parentPath;
