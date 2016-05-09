@@ -19,16 +19,10 @@ export default function serializer(t, type, valueType, acc = t.objectExpression(
     } else {
       throw new Error('unknown value type');
     }
-  } else if (t.isUnionTypeAnnotation(type)) {
+  } else if (type.types) {
+    const kind = t.isUnionTypeAnnotation(type) ? 'union' : 'intersection';
     acc.properties.push(
-      t.objectProperty(t.identifier('kind'), t.stringLiteral('union')),
-      t.objectProperty(t.identifier('types'), t.arrayExpression(
-        type.types.map((tt) => serializer(t, tt))
-      ))
-    );
-  } else if (t.isIntersectionTypeAnnotation(type)) {
-    acc.properties.push(
-      t.objectProperty(t.identifier('kind'), t.stringLiteral('intersection')),
+      t.objectProperty(t.identifier('kind'), t.stringLiteral(kind)),
       t.objectProperty(t.identifier('types'), t.arrayExpression(
         type.types.map((tt) => serializer(t, tt))
       ))
