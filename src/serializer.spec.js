@@ -142,4 +142,24 @@ describe('serialize', () => {
         '{ type: Function, returns: { type: String }, parameters: [{ type: String }, { type: String }] }');
     });
   });
+
+  describe('a union', () => {
+    it('type declaration', () => {
+      const descr = serialize({
+        type: 'UnionTypeAnnotation',
+        types: [{ type: 'StringTypeAnnotation' }, { type: 'NumberTypeAnnotation' }],
+      });
+      assert.equal(descr, '{ kind: "union", types: [{ type: String }, { type: Number }] }');
+    });
+  });
+
+  describe('an intersection', () => {
+    it('type declaration', () => {
+      const descr = serialize({
+        type: 'IntersectionTypeAnnotation',
+        types: [{ type: 'StringTypeAnnotation' }, { type: 'NumberTypeAnnotation' }],
+      });
+      assert.equal(descr, '{ kind: "intersection", types: [{ type: String }, { type: Number }] }');
+    });
+  });
 });
