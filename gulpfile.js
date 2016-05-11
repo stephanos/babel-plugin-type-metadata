@@ -76,8 +76,8 @@ gulp.task('unit-test', function (done) {
         })
         .pipe(istanbul.writeReports({
           dir: 'coverage',
+          reporters: ['lcovonly'],
           reportOpts: {dir: 'coverage'},
-          reporters: ['lcov']
         }))
         .on('end', done);
     });
