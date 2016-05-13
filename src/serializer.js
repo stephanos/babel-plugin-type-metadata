@@ -1,5 +1,4 @@
-/* eslint func-names: 0 */
-let serializer = null;
+/* eslint no-use-before-define: 0 */
 
 function serializeValueType(t, valueType, acc) {
   if (t.isBooleanLiteral(valueType)) {
@@ -101,7 +100,7 @@ function serializeSimpleType(t, type, acc) {
   return acc;
 }
 
-serializer = function (t, type, valueType, acc = t.objectExpression([])) {
+function serializer(t, type, valueType, acc = t.objectExpression([])) {
   if (!type) {
     return serializeValueType(t, valueType, acc);
   }
@@ -126,7 +125,7 @@ serializer = function (t, type, valueType, acc = t.objectExpression([])) {
   }
 
   return serializeSimpleType(t, type, acc);
-};
+}
 
 
 export default serializer;
