@@ -33,6 +33,9 @@ Reflect.defineMetadata('typeof', {
 }, MyClass, 'stringMethod');
 ```
 
+**Important:** Since the reflection API is still just a proposal at this time,
+you'll need a polyfill like [core-js](https://github.com/zloirock/core-js).
+
 
 ## Get Started
 
