@@ -59,6 +59,12 @@ describe('applying transformer to', () => {
     });
   });
 
+  describe('a type alias', () => {
+    it('should define metadata', () => {
+      testFixture('type-alias');
+    });
+  });
+
   describe('a non-decorated class', () => {
     it('should not modify the input', () => {
       testFixture('non-typed');

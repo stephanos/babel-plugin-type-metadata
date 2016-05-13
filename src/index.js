@@ -2,19 +2,19 @@
 
 import serializer from './serializer';
 
-function defineMetadata(t, kind, classPath, path, typeDescriptor) {
+function defineMetadata(t, kind, nodePath, typeDescriptor, target, targetKey) {
   typeDescriptor.properties.unshift(
     t.objectProperty(t.identifier('kind'), t.stringLiteral(kind))
   );
-  classPath.insertAfter(
+  nodePath.insertAfter(
     t.callExpression(
       t.memberExpression(
         t.identifier('Reflect'), t.identifier('defineMetadata')
       ), [
         t.stringLiteral('typeof'),
         typeDescriptor,
-        classPath.node.id,
-        t.stringLiteral(path.node.key.name),
+        target,
+        t.stringLiteral(targetKey),
       ]
     )
   );
@@ -37,7 +37,7 @@ export default function ({ types: t }) {
           // console.log(e);
           return;
         }
-        defineMetadata(t, 'prop', classPath, path, typeDescriptor);
+        defineMetadata(t, 'prop', classPath, typeDescriptor, classPath.node.id, path.node.key.name);
       },
       ClassMethod(path) {
         const classPath = path.parentPath.parentPath;
@@ -63,7 +63,18 @@ export default function ({ types: t }) {
           return;
         }
 
-        defineMetadata(t, path.node.kind, classPath, path, typeDescriptor);
+        defineMetadata(t, path.node.kind, classPath, typeDescriptor, classPath.node.id, path.node.key.name);
+      },
+      TypeAlias(path) {
+        let typeDescriptor;
+        try {
+          typeDescriptor = serializer(t, path.node.right);
+        } catch (e) {
+          // console.log(e);
+          return;
+        }
+
+        defineMetadata(t, 'alias', path, typeDescriptor, t.identifier('module'), path.node.id.name);
       },
     },
   };
