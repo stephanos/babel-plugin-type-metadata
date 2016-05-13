@@ -162,15 +162,4 @@ describe('serialize', () => {
       assert.equal(descr, '{ kind: "intersection", types: [{ type: String }, { type: Number }] }');
     });
   });
-
-  describe('a type alias', () => {
-    it('type declaration', () => {
-      const descr = serialize({
-        type: 'TypeAlias',
-        id: { name: 'MyType' },
-        right: { type: 'NumberTypeAnnotation' },
-      });
-      assert.equal(descr, '{ kind: "alias", name: "MyType", definition: { type: Number } }');
-    });
-  });
 });

@@ -68,7 +68,9 @@ export default function ({ types: t }) {
       TypeAlias(path) {
         let typeDescriptor;
         try {
-          typeDescriptor = serializer(t, path.node.right);
+          typeDescriptor = t.objectExpression([
+            t.objectProperty(t.identifier('definition'), serializer(t, path.node.right)),
+          ]);
         } catch (e) {
           // console.log(e);
           return;

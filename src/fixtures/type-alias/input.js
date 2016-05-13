@@ -1,1 +1,1 @@
-type MyType = string;
+type MyType = string | number;

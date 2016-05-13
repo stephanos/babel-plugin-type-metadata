@@ -35,15 +35,6 @@ function serializeCombinedType(t, type, acc) {
   return acc;
 }
 
-function serializeTypeAlias(t, type, acc) {
-  acc.properties.push(
-    t.objectProperty(t.identifier('kind'), t.stringLiteral('alias')),
-    t.objectProperty(t.identifier('name'), t.stringLiteral(type.id.name)),
-    t.objectProperty(t.identifier('definition'), serializer(t, type.right))
-  );
-  return acc;
-}
-
 function serializeSimpleType(t, type, acc) {
   if (t.isBooleanTypeAnnotation(type)) {
     acc.properties.unshift(
@@ -107,10 +98,6 @@ function serializer(t, type, valueType, acc = t.objectExpression([])) {
 
   if (type.types) {
     return serializeCombinedType(t, type, acc);
-  }
-
-  if (t.isTypeAlias(type)) {
-    return serializeTypeAlias(t, type, acc);
   }
 
   if (t.isNullableTypeAnnotation(type)) {

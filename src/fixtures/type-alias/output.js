@@ -1,5 +1,12 @@
-type MyType = string;
+type MyType = string | number;
 Reflect.defineMetadata("typeof", {
   kind: "alias",
-  type: String
+  definition: {
+    kind: "union",
+    types: [{
+      type: String
+    }, {
+      type: Number
+    }]
+  }
 }, module, "MyType")
