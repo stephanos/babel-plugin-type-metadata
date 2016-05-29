@@ -30,13 +30,7 @@ export default function ({ types: t }) {
         }
 
         const classPath = path.parentPath.parentPath;
-        let typeDescriptor;
-        try {
-          typeDescriptor = serializer(t, propType, path.node.value);
-        } catch (e) {
-          // console.log(e);
-          return;
-        }
+        const typeDescriptor = serializer(t, propType, path.node.value);
         defineMetadata(t, 'prop', classPath, typeDescriptor, classPath.node.id, path.node.key.name);
       },
       ClassMethod(path) {
@@ -46,35 +40,23 @@ export default function ({ types: t }) {
           returnType = t.typeAnnotation(t.genericTypeAnnotation(classPath.node.id));
         }
 
-        let typeDescriptor;
-        try {
-          typeDescriptor = t.objectExpression([
-            t.objectProperty(
-              t.identifier('returns'),
-              serializer(t, returnType)
-            ),
-            t.objectProperty(
-              t.identifier('parameters'),
-              t.arrayExpression(path.node.params.map((p) => serializer(t, p.typeAnnotation)))
-            ),
-          ]);
-        } catch (e) {
-          // console.log(e);
+        if (!returnType) {
           return;
         }
+
+        const typeDescriptor = t.objectExpression([
+          t.objectProperty(
+            t.identifier('returns'),
+            serializer(t, returnType)
+          ),
+        ]);
 
         defineMetadata(t, path.node.kind, classPath, typeDescriptor, classPath.node.id, path.node.key.name);
       },
       TypeAlias(path) {
-        let typeDescriptor;
-        try {
-          typeDescriptor = t.objectExpression([
-            t.objectProperty(t.identifier('definition'), serializer(t, path.node.right)),
-          ]);
-        } catch (e) {
-          // console.log(e);
-          return;
-        }
+        const typeDescriptor = t.objectExpression([
+          t.objectProperty(t.identifier('definition'), serializer(t, path.node.right)),
+        ]);
 
         defineMetadata(t, 'alias', path, typeDescriptor, t.identifier('module'), path.node.id.name);
       },

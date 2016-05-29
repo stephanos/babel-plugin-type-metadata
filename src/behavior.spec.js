@@ -23,7 +23,7 @@ describe('query type metadata', () => {
       const MyClass = load('method').default;
 
       assert.deepEqual(Reflect.getMetadata('typeof', MyClass, 'stringMethod'),
-        { kind: 'method', returns: { type: String }, parameters: [] });
+        { kind: 'method', returns: { type: String } });
     });
   });
 });

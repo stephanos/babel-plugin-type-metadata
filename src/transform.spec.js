@@ -38,23 +38,11 @@ describe('applying transformer to', () => {
       it('should define metadata', () => {
         testFixture('method');
       });
-
-      describe('with parameters', () => {
-        it('should define metadata', () => {
-          testFixture('method-with-param');
-        });
-      });
     });
 
     describe('with typed constructor', () => {
       it('should define metadata', () => {
         testFixture('constructor');
-      });
-
-      describe('with parameters', () => {
-        it('should define metadata', () => {
-          testFixture('constructor-with-param');
-        });
       });
     });
   });
