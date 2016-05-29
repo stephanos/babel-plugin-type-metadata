@@ -39,6 +39,12 @@ describe('applying transformer to', () => {
         testFixture('method');
       });
     });
+
+    describe('with typed accessor', () => {
+      it('should define metadata', () => {
+        testFixture('accessor');
+      });
+    });
   });
 
   describe('a type alias', () => {

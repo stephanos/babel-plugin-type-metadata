@@ -40,6 +40,10 @@ export default function ({ types: t }) {
           return;
         }
 
+        if (path.node.kind === 'set') {
+          return;
+        }
+
         const typeDescriptor = t.objectExpression([
           t.objectProperty(
             t.identifier('returns'),
