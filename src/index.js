@@ -35,11 +35,7 @@ export default function ({ types: t }) {
       },
       ClassMethod(path) {
         const classPath = path.parentPath.parentPath;
-        let returnType = path.node.returnType;
-        if (path.node.kind === 'constructor') {
-          returnType = t.typeAnnotation(t.genericTypeAnnotation(classPath.node.id));
-        }
-
+        const returnType = path.node.returnType;
         if (!returnType) {
           return;
         }
